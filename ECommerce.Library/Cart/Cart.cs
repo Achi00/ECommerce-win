@@ -19,14 +19,23 @@ namespace ECommerce.Library.Cart
             _validatorFactory = validatorFactory;
         }
 
-        public IReadOnlyList<CartItem> AllItems() => _items.AsReadOnly();
+        // get all items as IProduct
+        public IReadOnlyList<CartItem> AllItems() => _items;
+
+        // return product based on provided generic type
+
+        public IReadOnlyList<T> GetProductsByType<T>() where T : IProduct
+        {
+            return _items
+                .Select(i => i.Product)
+                .OfType<T>()
+                .ToList();
+        }
 
         public decimal TotalPrice() => _items.Sum(i => i.TotalPrice());
 
         public void AddItem(IProduct product, int quantity)
         {
-
-            // check if item exists
             var existingItem = _items.FirstOrDefault(i => i.Product.Equals(product));
 
             if (existingItem != null)
@@ -35,8 +44,7 @@ namespace ECommerce.Library.Cart
             }
             else
             {
-                var newItem = new CartItem(product, quantity, _validatorFactory);
-                _items.Add(newItem);
+                _items.Add(new CartItem(product, quantity, _validatorFactory));
             }
         }
 

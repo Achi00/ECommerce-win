@@ -29,5 +29,6 @@ namespace ECommerceUI.Products
 
         // in case of discount override
         public virtual decimal Price() => _price;
+
     }
 }

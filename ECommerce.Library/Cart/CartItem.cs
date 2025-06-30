@@ -31,7 +31,8 @@ namespace ECommerce.Library.Cart
             _validatorFactory = validatorFactory;
 
             // Validate using the appropriate validator
-            ValidateProduct(product, quantity);
+            _validatorFactory.ValidateProduct(product, quantity);
+            //ValidateProduct(product, quantity);
         }
 
         private void ValidateProduct(IProduct product, int quantity)
@@ -49,9 +50,10 @@ namespace ECommerce.Library.Cart
             {
                 throw new ArgumentException("Amound must be positive");
             }
-            // validate quantity if physical product
+            // validate quantity of physical product based on stock
+            // chack newest amount in cart
             int newTotalQuantity = Quantity + amount;
-            ValidateProduct(Product, newTotalQuantity);
+            _validatorFactory.ValidateProduct(Product, newTotalQuantity);
             Quantity = newTotalQuantity;
         }
 

@@ -56,14 +56,20 @@ try
     //Console.WriteLine(physicalProduct.GetStock());
     cartService.AddProductToCart(physicalProduct, 8); // More than stock!
 
-    var items = cartService.CartItems();
+    var items = cartService.GetDigitalProducts();
+
+    var physical = cartService.GetPhysicalProducts();
 
     foreach (var item in items)
     {
-        Console.WriteLine(item.Quantity);
-        Console.WriteLine(item.Product.Name());
-        Console.WriteLine(item.Product.Description());
-        //Console.WriteLine(item.Product.);
+        Console.WriteLine(item.GetType());
+        Console.WriteLine(item.FileSize());
+    }
+
+    foreach (var item in physical)
+    {
+        Console.WriteLine(item.GetType());
+        Console.WriteLine(item.Stock());
     }
 
     //var cart = cartService.

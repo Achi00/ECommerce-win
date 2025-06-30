@@ -14,6 +14,7 @@ namespace ECommerce.Library.Products
 
         public int Stock() => _stock;
 
+
         //public void DecreaseStock(int quantity)
         //{
         //    if (quantity <= 0)

@@ -28,5 +28,6 @@ namespace ECommerce.Library.Products
         // add security in future
         // TODO: add auth and generate hash with product id and user id, generate download link with it which can be opened by owner user
         public string DownloadLink() => _downloadLink;
+
     }
 }

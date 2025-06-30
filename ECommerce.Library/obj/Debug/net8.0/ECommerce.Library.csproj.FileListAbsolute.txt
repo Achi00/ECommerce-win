@@ -10,3 +10,4 @@ D:\Csharp\ECommerceUI\ECommerce.Library\obj\Debug\net8.0\ECommerce.Library.dll
 D:\Csharp\ECommerceUI\ECommerce.Library\obj\Debug\net8.0\refint\ECommerce.Library.dll
 D:\Csharp\ECommerceUI\ECommerce.Library\obj\Debug\net8.0\ECommerce.Library.pdb
 D:\Csharp\ECommerceUI\ECommerce.Library\obj\Debug\net8.0\ref\ECommerce.Library.dll
+D:\Csharp\ECommerceUI\ECommerce.Library\obj\Debug\net8.0\ECommerce.Library.sourcelink.json

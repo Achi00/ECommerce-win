@@ -26,9 +26,21 @@ namespace ECommerce.Library.Cart.Controllers
             _cart.RemoveItem(product);
         }
 
+        // get all items
         public IReadOnlyList<CartItem> CartItems()
         {
             return _cart.AllItems();
+        }
+
+        // get digital items
+        public IReadOnlyList<IDigitalProduct> GetDigitalProducts()
+        {
+            return _cart.GetProductsByType<IDigitalProduct>();
+        }
+        // get physical items
+        public IReadOnlyList<IPhysicalProduct> GetPhysicalProducts()
+        {
+            return _cart.GetProductsByType<IPhysicalProduct>();
         }
 
         public decimal CartTotal()

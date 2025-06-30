@@ -1,4 +1,5 @@
-﻿namespace ECommerce.Library.Products.Interfaces
+﻿
+namespace ECommerce.Library.Products.Interfaces
 {
     public interface IProduct
     {
