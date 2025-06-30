@@ -30,25 +30,15 @@ namespace ECommerce.Library.Cart
             Quantity = quantity;
             _validatorFactory = validatorFactory;
 
-            // Validate using the appropriate validator
+            // validates type, gaves interface and validates based on type
             _validatorFactory.ValidateProduct(product, quantity);
-            //ValidateProduct(product, quantity);
         }
-
-        private void ValidateProduct(IProduct product, int quantity)
-        {
-            // resolve the correct generic method at runtime
-            // validate type
-            dynamic dynamicProduct = product;
-            _validatorFactory.ValidateProduct(dynamicProduct, quantity);
-        }
-
 
         public void IncreaseQuantity(int amount = 1)
         {
             if (amount <= 0)
             {
-                throw new ArgumentException("Amound must be positive");
+                throw new ArgumentException("Amount must be positive");
             }
             // validate quantity of physical product based on stock
             // chack newest amount in cart

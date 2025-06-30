@@ -60,18 +60,40 @@ try
     // This will call your DigitalProductCartValidator  
     cartService.AddProductToCart(digitalProduct, 1);
     Console.WriteLine("Digital product added successfully!");
+    cartService.AddProductToCart(physicalProduct, 1);
 
     // This will throw exception from PhysicalProductCartValidator
     //Console.WriteLine(physicalProduct.GetStock());
-    cartService.AddProductToCart(physicalProduct, 8); // More than stock!
+    //cartService.AddProductToCart(physicalProduct, 8); // More than stock!
 
-    var items = cartService.GetDigitalProducts();
+    //Console.WriteLine(cartService.);
+    var digitalItems = cartService.GetDigitalProducts();
 
-    var physical = cartService.GetPhysicalProducts();
+    var a = cartService.CartItems();
+    foreach (var item in a)
+    {
+        Console.WriteLine(item.Product.Name() + " - " + item.Quantity);
+    }
 
-    var removed = cartService.RemoveProductFromCart(2);
+    cartService.IncreaseItemQuantity(digitalProduct);
 
-    Console.WriteLine($"Item {removed.Name()} Removed succesfully");
+
+    //foreach (var item in digitalItems)
+    //{
+    //    Console.WriteLine(item);
+    //}
+    Console.WriteLine("-------------");
+
+    foreach (var item in a)
+    {
+        Console.WriteLine(item.Product.Name() + " - " + item.Quantity);
+    }
+
+    //var physical = cartService.GetPhysicalProducts();
+
+    //var removed = cartService.RemoveProductFromCart(2);
+
+    //Console.WriteLine($"Item {removed.Name()} Removed succesfully");
 
 }
 catch (InvalidOperationException ex)

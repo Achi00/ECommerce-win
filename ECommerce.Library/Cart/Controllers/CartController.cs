@@ -16,9 +16,22 @@ namespace ECommerce.Library.Cart.Controllers
             _cart = new Cart(validatorFactory);
         }
 
+        // add product in cart, if it exist increase qty
         public void AddProductToCart(IProduct product, int quantity)
         {
             _cart.AddItem(product, quantity);
+        }
+
+        // increment cart product qty by 1
+        public void IncreaseItemQuantity(IProduct product)
+        {
+            _cart.IncreaseQuantity(product);
+        }
+
+        // decrement cart product qty by 1
+        public void DecreaseItemQuantity(IProduct product)
+        {
+            _cart.DecreaseQuantity(product);
         }
 
         // remove item by id
