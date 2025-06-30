@@ -48,11 +48,15 @@ namespace ECommerce.Library.Cart
             }
         }
 
-        public void RemoveItem(IProduct product)
+        public IProduct? RemoveItem(int productId)
         {
-
+            var item = _items.FirstOrDefault(i => i.Product.Id() == productId);
+            if (item == null)
+            {
+                return null;
+            }
+            _items.Remove(item);
+            return item.Product;
         }
-
-        
     }
 }

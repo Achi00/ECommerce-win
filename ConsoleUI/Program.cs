@@ -30,6 +30,14 @@ IPhysicalProduct physicalProduct = new PhysicalProduct(
         description: "High-end laptop",
         stock: 10
 );
+IPhysicalProduct physicalProduct2 = new PhysicalProduct(
+        id: 2,
+        name: "Pc",
+        imageUrl: "pc.jpg",
+        price: 1200,
+        description: "High-end gaming pc",
+        stock: 3
+);
 
 IDigitalProduct digitalProduct = new DigitalProduct(
             id: 1,
@@ -46,6 +54,7 @@ try
 {
     // This will call your PhysicalProductCartValidator
     cartService.AddProductToCart(physicalProduct, 2);
+    cartService.AddProductToCart(physicalProduct2, 3);
     Console.WriteLine("Physical product added successfully!");
 
     // This will call your DigitalProductCartValidator  
@@ -60,19 +69,9 @@ try
 
     var physical = cartService.GetPhysicalProducts();
 
-    foreach (var item in items)
-    {
-        Console.WriteLine(item.GetType());
-        Console.WriteLine(item.FileSize());
-    }
+    var removed = cartService.RemoveProductFromCart(2);
 
-    foreach (var item in physical)
-    {
-        Console.WriteLine(item.GetType());
-        Console.WriteLine(item.Stock());
-    }
-
-    //var cart = cartService.
+    Console.WriteLine($"Item {removed.Name()} Removed succesfully");
 
 }
 catch (InvalidOperationException ex)

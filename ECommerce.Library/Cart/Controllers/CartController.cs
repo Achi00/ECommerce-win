@@ -21,9 +21,17 @@ namespace ECommerce.Library.Cart.Controllers
             _cart.AddItem(product, quantity);
         }
 
-        public void RemoveProductFromCart(IProduct product)
+        // remove item by id
+        public IProduct? RemoveProductFromCart(int productId)
         {
-            _cart.RemoveItem(product);
+           var output = _cart.RemoveItem(productId);
+
+            if (output == null)
+            {
+                throw new InvalidOperationException($"Could not remove item with id: {productId}");
+            }
+
+            return output;
         }
 
         // get all items
