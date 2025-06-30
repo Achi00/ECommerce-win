@@ -1,0 +1,12 @@
+D:\Csharp\ECommerceUI\ECommerce.Library\bin\Debug\net8.0\ECommerce.Library.deps.json
+D:\Csharp\ECommerceUI\ECommerce.Library\bin\Debug\net8.0\ECommerce.Library.dll
+D:\Csharp\ECommerceUI\ECommerce.Library\bin\Debug\net8.0\ECommerce.Library.pdb
+D:\Csharp\ECommerceUI\ECommerce.Library\obj\Debug\net8.0\ECommerce.Library.csproj.AssemblyReference.cache
+D:\Csharp\ECommerceUI\ECommerce.Library\obj\Debug\net8.0\ECommerce.Library.GeneratedMSBuildEditorConfig.editorconfig
+D:\Csharp\ECommerceUI\ECommerce.Library\obj\Debug\net8.0\ECommerce.Library.AssemblyInfoInputs.cache
+D:\Csharp\ECommerceUI\ECommerce.Library\obj\Debug\net8.0\ECommerce.Library.AssemblyInfo.cs
+D:\Csharp\ECommerceUI\ECommerce.Library\obj\Debug\net8.0\ECommerce.Library.csproj.CoreCompileInputs.cache
+D:\Csharp\ECommerceUI\ECommerce.Library\obj\Debug\net8.0\ECommerce.Library.dll
+D:\Csharp\ECommerceUI\ECommerce.Library\obj\Debug\net8.0\refint\ECommerce.Library.dll
+D:\Csharp\ECommerceUI\ECommerce.Library\obj\Debug\net8.0\ECommerce.Library.pdb
+D:\Csharp\ECommerceUI\ECommerce.Library\obj\Debug\net8.0\ref\ECommerce.Library.dll
