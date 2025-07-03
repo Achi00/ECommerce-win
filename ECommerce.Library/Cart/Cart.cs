@@ -1,12 +1,5 @@
 ﻿using ECommerce.Library.Cart.Validation;
 using ECommerce.Library.Products.Interfaces;
-using ECommerceUI.Products;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.WebSockets;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ECommerce.Library.Cart
 {
@@ -46,7 +39,7 @@ namespace ECommerce.Library.Cart
             // increase quantity if item aldeady in cart
             if (existingItem != null)
             {
-                existingItem.IncreaseQuantity(quantity);
+                existingItem.AddQuantity(quantity);
             }
             else
             {
@@ -61,14 +54,14 @@ namespace ECommerce.Library.Cart
             if (item != null)
             {
                 _items.Remove(item);
-                item.DecreaseQuantity();
+                item.RemoveQuantity();
                 return item.Product;
             }
             return null;
         }
 
         // only increase quantity of existing item in cart
-        public void IncreaseQuantity(IProduct item)
+        public void IncreaseProductQuantity(IProduct item)
         {
             if (item is null)
             {
@@ -78,12 +71,12 @@ namespace ECommerce.Library.Cart
             var existingItem = FindItemByProduct(item);
             if (existingItem != null)
             {
-                existingItem.IncreaseQuantity();
+                existingItem.AddQuantity();
             }
         }
 
         // only decrease quantity of existing item in cart
-        public void DecreaseQuantity(IProduct item)
+        public void DecreaseProductQuantity(IProduct item)
         {
             if (item is null)
             {
@@ -93,18 +86,26 @@ namespace ECommerce.Library.Cart
             var existingItem = FindItemByProduct(item);
             if (existingItem == null)
             {
-                return; // Item not in cart, nothing to decrease
+                // item not in cart, nothing to decrease
+                return; 
             }
 
-            existingItem.DecreaseQuantity();
-
-            // if item count is 1 after decrement remove it from cart
-            if (existingItem.Quantity == 1)
+            // if only 1 item left, remove whole item instead of decrement
+            if (existingItem.Quantity <= 1)
             {
                 RemoveItem(item.Id());
+                return;
             }
+
+            // decrease product quantity by one
+            existingItem.RemoveQuantity();
+
+            
         }
 
+
+        // fint product in list by id
+        // not by refference!!! will cause problems
         private CartItem? FindItemByProduct(IProduct product)
         {
             if (product == null)

@@ -34,7 +34,7 @@ namespace ECommerce.Library.Cart
             _validatorFactory.ValidateProduct(product, quantity);
         }
 
-        public void IncreaseQuantity(int amount = 1)
+        public void AddQuantity(int amount = 1)
         {
             if (amount <= 0)
             {
@@ -47,7 +47,7 @@ namespace ECommerce.Library.Cart
             Quantity = newTotalQuantity;
         }
 
-        public void DecreaseQuantity(int amount = 1)
+        public void RemoveQuantity(int amount = 1)
         {
             if (amount <= 0 || amount > Quantity)
             {

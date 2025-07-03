@@ -22,7 +22,7 @@ var serviceProvider = services.BuildServiceProvider();
 var cartService = serviceProvider.GetRequiredService<CartController>();
 
 
-IPhysicalProduct physicalProduct = new PhysicalProduct(
+IPhysicalProduct laptop = new PhysicalProduct(
         id: 1,
         name: "Laptop",
         imageUrl: "laptop.jpg",
@@ -30,7 +30,7 @@ IPhysicalProduct physicalProduct = new PhysicalProduct(
         description: "High-end laptop",
         stock: 10
 );
-IPhysicalProduct physicalProduct2 = new PhysicalProduct(
+IPhysicalProduct pc = new PhysicalProduct(
         id: 2,
         name: "Pc",
         imageUrl: "pc.jpg",
@@ -39,9 +39,9 @@ IPhysicalProduct physicalProduct2 = new PhysicalProduct(
         stock: 3
 );
 
-IDigitalProduct digitalProduct = new DigitalProduct(
-            id: 1,
-            name: "Windows 10",
+IDigitalProduct windows = new DigitalProduct(
+            id: 3,
+            name: "Windows",
             imageUrl: "img.jog",
             price: 120,
             description: "windows 10 installer",
@@ -53,14 +53,16 @@ IDigitalProduct digitalProduct = new DigitalProduct(
 try
 {
     // This will call your PhysicalProductCartValidator
-    cartService.AddProductToCart(physicalProduct, 2);
-    cartService.AddProductToCart(physicalProduct2, 3);
+    cartService.AddProductToCart(laptop, 2);
+    cartService.AddProductToCart(pc, 3);
     Console.WriteLine("Physical product added successfully!");
 
     // This will call your DigitalProductCartValidator  
-    cartService.AddProductToCart(digitalProduct, 1);
+    cartService.AddProductToCart(windows, 1);
     Console.WriteLine("Digital product added successfully!");
-    cartService.AddProductToCart(physicalProduct, 1);
+    cartService.AddProductToCart(laptop, 1);
+    cartService.AddProductToCart(windows, 2);
+
 
     // This will throw exception from PhysicalProductCartValidator
     //Console.WriteLine(physicalProduct.GetStock());
@@ -74,14 +76,17 @@ try
     {
         Console.WriteLine(item.Product.Name() + " - " + item.Quantity);
     }
+    cartService.IncreaseItemQuantity(windows);
 
-    cartService.IncreaseItemQuantity(digitalProduct);
+    cartService.IncreaseItemQuantity(windows);
+
+    cartService.DecreaseItemQuantity(pc);
+    cartService.DecreaseItemQuantity(pc);
+    //cartService.DecreaseItemQuantity(pc);
+
+    cartService.RemoveProductFromCart(1);
 
 
-    //foreach (var item in digitalItems)
-    //{
-    //    Console.WriteLine(item);
-    //}
     Console.WriteLine("-------------");
 
     foreach (var item in a)

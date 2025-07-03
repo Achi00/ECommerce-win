@@ -25,13 +25,13 @@ namespace ECommerce.Library.Cart.Controllers
         // increment cart product qty by 1
         public void IncreaseItemQuantity(IProduct product)
         {
-            _cart.IncreaseQuantity(product);
+            _cart.IncreaseProductQuantity(product);
         }
 
         // decrement cart product qty by 1
         public void DecreaseItemQuantity(IProduct product)
         {
-            _cart.DecreaseQuantity(product);
+            _cart.DecreaseProductQuantity(product);
         }
 
         // remove item by id
