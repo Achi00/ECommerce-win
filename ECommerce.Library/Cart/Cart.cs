@@ -5,7 +5,9 @@ namespace ECommerce.Library.Cart
 {
     public class Cart
     {
+        // holds cart items
         private readonly List<CartItem> _items = new();
+        // validates item based on it type, e.g: PhysicalProuct, DigitalProduct... ect.
         private readonly IValidatorFactory _validatorFactory;
 
         public Cart(IValidatorFactory validatorFactory)
@@ -13,11 +15,10 @@ namespace ECommerce.Library.Cart
             _validatorFactory = validatorFactory;
         }
 
-        // get all items as IProduct
+        // get all items as IProduct readonly list
         public IReadOnlyList<CartItem> AllItems() => _items;
 
         // return product based on provided generic type
-
         public IReadOnlyList<T> GetProductsByType<T>() where T : IProduct
         {
             return _items
@@ -34,12 +35,13 @@ namespace ECommerce.Library.Cart
             {
                 throw new ArgumentException("Quantity must be higher than 0");
             }
+            // finds item in list by id
             var existingItem = FindItemByProduct(product);
 
-            // increase quantity if item aldeady in cart
+            // increase quantity if item is already in cart
             if (existingItem != null)
             {
-                existingItem.AddQuantity(quantity);
+                existingItem.IncreaseQuantity(quantity);
             }
             else
             {
@@ -47,6 +49,10 @@ namespace ECommerce.Library.Cart
             }
         }
 
+        // removes item fully from cart's list
+        /*
+         * No need to change quantity!!!
+        */
         public IProduct? RemoveItem(int productId)
         {
             var item = _items.FirstOrDefault(i => i.Product.Id() == productId);
@@ -54,7 +60,6 @@ namespace ECommerce.Library.Cart
             if (item != null)
             {
                 _items.Remove(item);
-                item.RemoveQuantity();
                 return item.Product;
             }
             return null;
@@ -71,7 +76,7 @@ namespace ECommerce.Library.Cart
             var existingItem = FindItemByProduct(item);
             if (existingItem != null)
             {
-                existingItem.AddQuantity();
+                existingItem.IncreaseQuantity();
             }
         }
 
@@ -98,9 +103,7 @@ namespace ECommerce.Library.Cart
             }
 
             // decrease product quantity by one
-            existingItem.RemoveQuantity();
-
-            
+            existingItem.DecreaseQuantity();
         }
 
 

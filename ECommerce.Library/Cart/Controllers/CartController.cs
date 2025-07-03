@@ -35,7 +35,7 @@ namespace ECommerce.Library.Cart.Controllers
         }
 
         // remove item by id
-        public IProduct? RemoveProductFromCart(int productId)
+        public RemovedProductDto RemoveProductFromCart(int productId)
         {
            var output = _cart.RemoveItem(productId);
 
@@ -44,7 +44,12 @@ namespace ECommerce.Library.Cart.Controllers
                 throw new InvalidOperationException($"Could not remove item with id: {productId}");
             }
 
-            return output;
+            return new RemovedProductDto(
+                        ProductId: productId,
+                        Name: output.Name(),
+                        Image: output.Image(),
+                        Price: output.Price()
+            );
         }
 
         // get all items
@@ -69,4 +74,6 @@ namespace ECommerce.Library.Cart.Controllers
             return _cart.TotalPrice();
         }
     }
+
+    public record RemovedProductDto(int ProductId, string Name, string Image, decimal Price);
 }

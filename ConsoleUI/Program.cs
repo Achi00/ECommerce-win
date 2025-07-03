@@ -5,7 +5,6 @@ using ECommerce.Library.Products;
 using ECommerce.Library.Products.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
-// set up DI
 var services = new ServiceCollection();
 
 //register validators
@@ -15,7 +14,7 @@ services.AddScoped<ICartValidator<IDigitalProduct>, DigitalProductCartValidator>
 // register factory
 services.AddScoped<IValidatorFactory, ValidatorFactory>();
 
-// Register cart controller
+// register cart controller
 services.AddScoped<CartController>();
 
 var serviceProvider = services.BuildServiceProvider();
@@ -52,16 +51,16 @@ IDigitalProduct windows = new DigitalProduct(
 
 try
 {
-    // This will call your PhysicalProductCartValidator
-    cartService.AddProductToCart(laptop, 2);
+    //cartService.AddProductToCart(laptop, 2);
     cartService.AddProductToCart(pc, 3);
+    cartService.IncreaseItemQuantity(pc);
     Console.WriteLine("Physical product added successfully!");
 
-    // This will call your DigitalProductCartValidator  
-    cartService.AddProductToCart(windows, 1);
-    Console.WriteLine("Digital product added successfully!");
-    cartService.AddProductToCart(laptop, 1);
-    cartService.AddProductToCart(windows, 2);
+    //// This will call your DigitalProductCartValidator  
+    //cartService.AddProductToCart(windows, 1);
+    //Console.WriteLine("Digital product added successfully!");
+    //cartService.AddProductToCart(laptop, 1);
+    //cartService.AddProductToCart(windows, 2);
 
 
     // This will throw exception from PhysicalProductCartValidator
@@ -80,12 +79,14 @@ try
 
     cartService.IncreaseItemQuantity(windows);
 
-    cartService.DecreaseItemQuantity(pc);
-    cartService.DecreaseItemQuantity(pc);
     //cartService.DecreaseItemQuantity(pc);
 
-    cartService.RemoveProductFromCart(1);
+    //var removedItem = cartService.RemoveProductFromCart(1);
 
+    //if (removedItem != null)
+    //{
+    //    Console.WriteLine($"Removed item: {removedItem.ProductId}, {removedItem.Name}, ${removedItem.Price}");
+    //}
 
     Console.WriteLine("-------------");
 

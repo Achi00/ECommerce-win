@@ -34,7 +34,8 @@ namespace ECommerce.Library.Cart
             _validatorFactory.ValidateProduct(product, quantity);
         }
 
-        public void AddQuantity(int amount = 1)
+        // helper function to increase item quantity by amount
+        public void IncreaseQuantity(int amount = 1)
         {
             if (amount <= 0)
             {
@@ -47,11 +48,12 @@ namespace ECommerce.Library.Cart
             Quantity = newTotalQuantity;
         }
 
-        public void RemoveQuantity(int amount = 1)
+        // helper function to decrease item quantity by amount
+        public void DecreaseQuantity(int amount = 1)
         {
             if (amount <= 0 || amount > Quantity)
             {
-                throw new ArgumentException("Invalid decrease amount, must be positive and less that \"Quantyty\"");
+                throw new ArgumentException("Invalid decrease amount, must be positive and less that \"Quantity\"");
             }
             Quantity -= amount;
         }
