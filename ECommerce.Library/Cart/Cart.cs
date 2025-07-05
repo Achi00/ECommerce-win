@@ -27,6 +27,14 @@ namespace ECommerce.Library.Cart
                 .ToList();
         }
 
+        // returns product which can be added in cart by quantity
+        public IEnumerable<(T Product, int Quantity)> GetProductsWithQuantities<T>() where T : IPhysicalProduct
+        {
+            return _items
+                .Where(item => item.Product is T)
+                .Select(item => ((T)item.Product, item.Quantity));
+        }
+
         public decimal TotalPrice() => _items.Sum(i => i.TotalPrice());
 
         public void AddItem(IProduct product, int quantity)

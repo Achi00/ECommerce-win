@@ -1,9 +1,13 @@
-﻿using ECommerce.Library.Cart;
+﻿using ECommerce.Library;
+using ECommerce.Library.Cart;
 using ECommerce.Library.Cart.Controllers;
 using ECommerce.Library.Cart.Validation;
 using ECommerce.Library.Products;
 using ECommerce.Library.Products.Interfaces;
+using ECommerce.Library.Shipping;
 using Microsoft.Extensions.DependencyInjection;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 var services = new ServiceCollection();
 
@@ -27,7 +31,8 @@ IPhysicalProduct laptop = new PhysicalProduct(
         imageUrl: "laptop.jpg",
         price: 999.99m,
         description: "High-end laptop",
-        stock: 10
+        stock: 10,
+        weightInKg: 5
 );
 IPhysicalProduct pc = new PhysicalProduct(
         id: 2,
@@ -35,7 +40,8 @@ IPhysicalProduct pc = new PhysicalProduct(
         imageUrl: "pc.jpg",
         price: 1200,
         description: "High-end gaming pc",
-        stock: 3
+        stock: 3,
+         weightInKg: 15
 );
 
 IDigitalProduct windows = new DigitalProduct(
@@ -51,9 +57,13 @@ IDigitalProduct windows = new DigitalProduct(
 
 try
 {
-    //cartService.AddProductToCart(laptop, 2);
+    cartService.AddProductToCart(laptop, 2);
     cartService.AddProductToCart(pc, 3);
-    cartService.IncreaseItemQuantity(pc);
+
+    /* 
+     * if we already add exxact amount in cart as stocka and still increment it, this will throw error
+     */
+    //cartService.IncreaseItemQuantity(pc);
     Console.WriteLine("Physical product added successfully!");
 
     //// This will call your DigitalProductCartValidator  
@@ -68,16 +78,40 @@ try
     //cartService.AddProductToCart(physicalProduct, 8); // More than stock!
 
     //Console.WriteLine(cartService.);
-    var digitalItems = cartService.GetDigitalProducts();
+    //var digitalItems = cartService.GetDigitalProducts();
 
-    var a = cartService.CartItems();
-    foreach (var item in a)
+    var physicalProducts = cartService.GetProductsWithQuantities<IPhysicalProduct>();
+
+
+    foreach (var (item, quantity) in physicalProducts)
     {
-        Console.WriteLine(item.Product.Name() + " - " + item.Quantity);
+        Console.WriteLine($"{item.Name()}: ${item.Price()} - {quantity}");
     }
-    cartService.IncreaseItemQuantity(windows);
 
-    cartService.IncreaseItemQuantity(windows);
+    // Load from file
+    var json = File.ReadAllText("shippingRules.json");
+
+    var options = new JsonSerializerOptions
+    {
+        Converters = { new JsonStringEnumConverter() }
+    };
+    var cityShippingRules = JsonSerializer.Deserialize<List<CityShippingRules>>(json, options);
+
+
+
+    ShippingCalculator shippingCalculator = new ShippingCalculator(cityShippingRules);
+    var shippingCost = shippingCalculator.CalculateShippingCost(City.Tbilisi, physicalProducts);
+
+    Console.WriteLine($"Sipping cost: {shippingCost}");
+
+    //var a = cartService.CartItems();
+    //foreach (var item in a)
+    //{
+    //    Console.WriteLine(item.Product.Name() + " - " + item.Quantity);
+    //}
+    //cartService.IncreaseItemQuantity(windows);
+
+    //cartService.IncreaseItemQuantity(windows);
 
     //cartService.DecreaseItemQuantity(pc);
 
@@ -90,10 +124,10 @@ try
 
     Console.WriteLine("-------------");
 
-    foreach (var item in a)
-    {
-        Console.WriteLine(item.Product.Name() + " - " + item.Quantity);
-    }
+    //foreach (var item in a)
+    //{
+    //    Console.WriteLine(item.Product.Name() + " - " + item.Quantity);
+    //}
 
     //var physical = cartService.GetPhysicalProducts();
 

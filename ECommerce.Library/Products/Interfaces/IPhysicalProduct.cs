@@ -3,5 +3,6 @@
     public interface IPhysicalProduct : IProduct
     {
         int Stock();
+        double WeightInKg { get; }
     }
 }

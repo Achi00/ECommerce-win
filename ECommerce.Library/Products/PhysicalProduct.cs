@@ -7,10 +7,30 @@ namespace ECommerce.Library.Products
     {
         private int _stock;
 
-        public PhysicalProduct(int id, string name, string imageUrl, decimal price, string description, int stock) : base(id, name, imageUrl, price, description)
+        private double _weight;
+        public double WeightInKg 
+        { 
+            get => _weight;  
+            private set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentException("Product weight cannot be negative", nameof(value));
+                }
+                else
+                {
+                    _weight = value;
+                }
+            }
+        }
+
+
+        public PhysicalProduct(int id, string name, string imageUrl, decimal price, string description, int stock, double weightInKg) : base(id, name, imageUrl, price, description)
         {
             _stock = stock;
+            WeightInKg = weightInKg;
         }
+
 
         public int Stock() => _stock;
 

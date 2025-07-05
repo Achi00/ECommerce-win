@@ -52,3 +52,4 @@ D:\Csharp\ECommerceUI\ConsoleUI\obj\Debug\net8.0\ConsoleUI.pdb
 D:\Csharp\ECommerceUI\ConsoleUI\obj\Debug\net8.0\ConsoleUI.genruntimeconfig.cache
 D:\Csharp\ECommerceUI\ConsoleUI\obj\Debug\net8.0\ref\ConsoleUI.dll
 D:\Csharp\ECommerceUI\ConsoleUI\obj\Debug\net8.0\ConsoleUI.sourcelink.json
+D:\Csharp\ECommerceUI\ConsoleUI\bin\Debug\net8.0\shippingRules.json

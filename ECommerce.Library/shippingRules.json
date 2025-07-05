@@ -1,0 +1,5 @@
+[
+  { "City": "Kutaisi", "BaseCost": 10, "CostPerKilometer": 0.5, "CostPerKilogram": 0.5, "distanceKilometer": 100 },
+  { "City": "Tbilisi", "BaseCost": 12, "CostPerKilometer": 0.6, "CostPerKilogram": 1, "distanceKilometer": 200 },
+  { "City": "Zestafoni", "BaseCost": 8, "CostPerKilometer": 0.4, "CostPerKilogram": 0.8, "distanceKilometer": 80 }
+]

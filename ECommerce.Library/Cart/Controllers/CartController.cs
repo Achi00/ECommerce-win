@@ -63,10 +63,18 @@ namespace ECommerce.Library.Cart.Controllers
         {
             return _cart.GetProductsByType<IDigitalProduct>();
         }
-        // get physical items
+        // get physical items as IProduct
         public IReadOnlyList<IPhysicalProduct> GetPhysicalProducts()
         {
             return _cart.GetProductsByType<IPhysicalProduct>();
+        }
+
+        // get physical items with there quantity in cart
+        public IEnumerable<(T Product, int Quantity)> GetProductsWithQuantities<T>() where T : IProduct
+        {
+            return CartItems()
+                .Where(item => item.Product is T)
+                .Select(item => ((T)item.Product, item.Quantity));
         }
 
         public decimal CartTotal()

@@ -11,3 +11,4 @@ D:\Csharp\ECommerceUI\ECommerce.Library\obj\Debug\net8.0\refint\ECommerce.Librar
 D:\Csharp\ECommerceUI\ECommerce.Library\obj\Debug\net8.0\ECommerce.Library.pdb
 D:\Csharp\ECommerceUI\ECommerce.Library\obj\Debug\net8.0\ref\ECommerce.Library.dll
 D:\Csharp\ECommerceUI\ECommerce.Library\obj\Debug\net8.0\ECommerce.Library.sourcelink.json
+D:\Csharp\ECommerceUI\ECommerce.Library\bin\Debug\net8.0\shippingRules.json
