@@ -1,5 +1,7 @@
 ﻿using ECommerce.Library.Cart.Validation;
 using ECommerce.Library.Products.Interfaces;
+using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
 namespace ECommerce.Library.Cart
 {
@@ -7,7 +9,7 @@ namespace ECommerce.Library.Cart
     {
         // holds cart items
         private readonly List<CartItem> _items = new();
-        // validates item based on it type, e.g: PhysicalProuct, DigitalProduct... ect.
+        // validates item based on it type, e.g: PhysicalProduct, DigitalProduct... ect.
         private readonly IValidatorFactory _validatorFactory;
 
         public Cart(IValidatorFactory validatorFactory)
@@ -37,7 +39,7 @@ namespace ECommerce.Library.Cart
 
         public decimal TotalPrice() => _items.Sum(i => i.TotalPrice());
 
-        public void AddItem(IProduct product, int quantity)
+        public void AddItem(IProduct product, int quantity, [CallerMemberName] string source = "")
         {
             if (quantity <= 0)
             {
@@ -53,14 +55,12 @@ namespace ECommerce.Library.Cart
             }
             else
             {
-                _items.Add(new CartItem(product, quantity, _validatorFactory));
+                var newItem = new CartItem(product, quantity, _validatorFactory, source);
+                _items.Add(newItem);
             }
         }
 
         // removes item fully from cart's list
-        /*
-         * No need to change quantity!!!
-        */
         public IProduct? RemoveItem(int productId)
         {
             var item = _items.FirstOrDefault(i => i.Product.Id() == productId);
@@ -74,17 +74,25 @@ namespace ECommerce.Library.Cart
         }
 
         // only increase quantity of existing item in cart
-        public void IncreaseProductQuantity(IProduct item)
+        public void IncreaseProductQuantity(IProduct item, [CallerMemberName] string source = "")
         {
             if (item is null)
             {
                 throw new ArgumentException("Product is missing");
             }
-            // increase existing item anoumt by default one
+            // increase existing item amount by default one
             var existingItem = FindItemByProduct(item);
             if (existingItem != null)
             {
+                int newPotentialQuantity = existingItem.Quantity + 1;
+
+                _validatorFactory.ValidateProduct(item, newPotentialQuantity, source);
+
                 existingItem.IncreaseQuantity();
+            }
+            else
+            {
+                _validatorFactory.ValidateProduct(item, 1, source);
             }
         }
 
@@ -95,7 +103,7 @@ namespace ECommerce.Library.Cart
             {
                 throw new ArgumentException("Product is missing");
             }
-            // decrease existing item amoumt by default one
+            // decrease existing item amount by default one
             var existingItem = FindItemByProduct(item);
             if (existingItem == null)
             {
@@ -115,8 +123,8 @@ namespace ECommerce.Library.Cart
         }
 
 
-        // fint product in list by id
-        // not by refference!!! will cause problems
+        // find product in list by id
+        // not by reference!!! will cause problems
         private CartItem? FindItemByProduct(IProduct product)
         {
             if (product == null)

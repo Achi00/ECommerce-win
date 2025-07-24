@@ -18,3 +18,4 @@ D:\Csharp\ECommerceUI\ECommerceUI\obj\Debug\net8.0-windows\refint\ECommerceUI.dl
 D:\Csharp\ECommerceUI\ECommerceUI\obj\Debug\net8.0-windows\ECommerceUI.pdb
 D:\Csharp\ECommerceUI\ECommerceUI\obj\Debug\net8.0-windows\ECommerceUI.genruntimeconfig.cache
 D:\Csharp\ECommerceUI\ECommerceUI\obj\Debug\net8.0-windows\ref\ECommerceUI.dll
+D:\Csharp\ECommerceUI\ECommerceUI\obj\Debug\net8.0-windows\ECommerceUI.sourcelink.json

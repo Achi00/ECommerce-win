@@ -21,7 +21,11 @@ namespace ECommerce.Library.Shipping
         // digital products are not shipped!
         public double CalculateShippingCost(City destination, IEnumerable<(IPhysicalProduct Product, int Quantity)> productsWithQuantities)
         {
-            // if destination city exists
+            if (productsWithQuantities == null)
+            {
+                throw new ArgumentNullException("productsWithQuantities cant be null");
+            }
+            // if destination city does not exists
             if (!_shippingRules.TryGetValue(destination, out var rules))
             {
                 throw new InvalidOperationException($"{destination} is not a valid shipping destination.");
@@ -35,13 +39,9 @@ namespace ECommerce.Library.Shipping
 
             // cost based on weight
             double weightCost = totalWeight * rules.CostPerKilogram;
-            // get total weight * item quantity of items in cart
-            //double totalWeightBasedOnQuantity = productsWithQuantities.Sum(item => item.Product.WeightInKg * item.Quantity);
-
-            //double totalCostOfKilometerBasedOnWeight;
 
             // final cost
-            var shippingCost = distanceCost + weightCost;
+            var shippingCost = rules.BaseCost + distanceCost + weightCost;
 
             return shippingCost;
         }

@@ -7,7 +7,22 @@ namespace ECommerce.Library.Products
     {
         private string _userEmail;
         private string _downloadLink;
-        private decimal _fileSize;
+        private double _fileSize;
+
+        public double FileSize { 
+            get => _fileSize; 
+            private set
+            {
+                if (value <= 0)
+                {
+                    throw new InvalidOperationException("File size cant be 0 or negative");
+                }
+                else
+                {
+                    _fileSize = value;
+                }
+            }
+        }
         public DigitalProduct(
             int id,
             string name,
@@ -16,7 +31,7 @@ namespace ECommerce.Library.Products
             string description,
             string userEmail,
             string downloadLink,
-            decimal fileSize
+            double fileSize
         ) : base(id, name, imageUrl, price, description)
         {
             _userEmail = userEmail;
@@ -24,10 +39,12 @@ namespace ECommerce.Library.Products
             _fileSize = fileSize;
         }
 
-        public decimal FileSize() => _fileSize;
+        //public double FileSize() => _fileSize;
         // add security in future
         // TODO: add auth and generate hash with product id and user id, generate download link with it which can be opened by owner user
         public string DownloadLink() => _downloadLink;
+
+        public string UserEmail() => _userEmail;
 
     }
 }

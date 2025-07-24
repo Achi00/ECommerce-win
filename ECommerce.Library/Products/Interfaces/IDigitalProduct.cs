@@ -2,7 +2,8 @@
 {
     public interface IDigitalProduct : IProduct
     {
+        double FileSize { get; }
         string DownloadLink();
-        decimal FileSize();
+        string UserEmail();
     }
 }

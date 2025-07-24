@@ -28,7 +28,7 @@ public class ValidatorFactory : IValidatorFactory
     }
 
     // based on correct interface we can use/access product type specific fields and values
-    public void ValidateProduct(IProduct product, int quantity)
+    public void ValidateProduct(IProduct product, int quantity, string source)
     {
         var productType = product.GetType();
         var interfaceType = GetValidatorInterfaceType(productType);
@@ -49,7 +49,8 @@ public class ValidatorFactory : IValidatorFactory
                 throw new InvalidOperationException($"Method {nameof(ValidateTyped)} could not be found.");
             }
 
-            method.Invoke(this, new object[] { product, quantity });
+            // !! pass all methods which is needed for validation !!
+            method.Invoke(this, new object[] { product, quantity, source });
         }
         else
         {
@@ -57,10 +58,10 @@ public class ValidatorFactory : IValidatorFactory
         }
     }
 
-    private void ValidateTyped<T>(IProduct product, int quantity) where T : IProduct
+    private void ValidateTyped<T>(IProduct product, int quantity, string operationType) where T : IProduct
     {
         var validator = _serviceProvider.GetRequiredService<ICartValidator<T>>();
-        validator.Validate((T)product, quantity);
+        validator.Validate((T)product, quantity, operationType);
     }
 
     private class ValidatorAdapter<T> : ICartValidator<T> where T : IProduct
@@ -74,12 +75,12 @@ public class ValidatorFactory : IValidatorFactory
             _serviceProvider = serviceProvider;
         }
 
-        public bool Validate(T product, int quantity)
+        public bool Validate(T product, int quantity, string operationType)
         {
             var validatorType = typeof(ICartValidator<>).MakeGenericType(_interfaceType);
             dynamic validator = _serviceProvider.GetRequiredService(validatorType);
 
-            return validator.Validate(product, quantity);
+            return validator.Validate(product, quantity, operationType);
         }
     }
 

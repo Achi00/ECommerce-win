@@ -11,6 +11,7 @@ namespace ECommerce.Library.Cart.Controllers
     public class CartController
     {
         private readonly Cart _cart;
+        // injects propriate dependency which is necessary for validate product depend on it's type
         public CartController(IValidatorFactory validatorFactory)
         {
             _cart = new Cart(validatorFactory);

@@ -39,9 +39,19 @@ IPhysicalProduct pc = new PhysicalProduct(
         name: "Pc",
         imageUrl: "pc.jpg",
         price: 1200,
-        description: "High-end gaming pc",
+        description: "office pc",
         stock: 3,
          weightInKg: 15
+);
+
+IPhysicalProduct gamingPc = new PhysicalProduct(
+        id: 2,
+        name: "Pc",
+        imageUrl: "pc.jpg",
+        price: 2500,
+        description: "High-end gaming pc",
+        stock: 1,
+        weightInKg: 20
 );
 
 IDigitalProduct windows = new DigitalProduct(
@@ -59,11 +69,12 @@ try
 {
     cartService.AddProductToCart(laptop, 2);
     cartService.AddProductToCart(pc, 3);
+    cartService.AddProductToCart(gamingPc, 1);
 
     /* 
      * if we already add exxact amount in cart as stocka and still increment it, this will throw error
      */
-    //cartService.IncreaseItemQuantity(pc);
+    cartService.IncreaseItemQuantity(pc);
     Console.WriteLine("Physical product added successfully!");
 
     //// This will call your DigitalProductCartValidator  
@@ -102,7 +113,7 @@ try
     ShippingCalculator shippingCalculator = new ShippingCalculator(cityShippingRules);
     var shippingCost = shippingCalculator.CalculateShippingCost(City.Tbilisi, physicalProducts);
 
-    Console.WriteLine($"Sipping cost: {shippingCost}");
+    Console.WriteLine($"Sipping cost: ${shippingCost}");
 
     //var a = cartService.CartItems();
     //foreach (var item in a)

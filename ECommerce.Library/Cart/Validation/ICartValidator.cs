@@ -1,4 +1,5 @@
-﻿using ECommerce.Library.Products;
+﻿using ECommerce.Library.Cart.Validation;
+using ECommerce.Library.Products;
 using ECommerce.Library.Products.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,6 @@ namespace ECommerce.Library.Cart
 {
     public interface ICartValidator<T> where T : IProduct
     {
-        bool Validate(T product, int quantity);
+        bool Validate(T product, int quantity, string source);
     }
 }

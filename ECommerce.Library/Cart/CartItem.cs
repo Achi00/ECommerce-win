@@ -14,7 +14,7 @@ namespace ECommerce.Library.Cart
         public int Quantity { get; private set; }
         private readonly IValidatorFactory _validatorFactory;
 
-        public CartItem(IProduct product, int quantity, IValidatorFactory validatorFactory)
+        public CartItem(IProduct product, int quantity, IValidatorFactory validatorFactory, string source = "unknown")
         {
             if (quantity <= 0)
             {
@@ -31,11 +31,11 @@ namespace ECommerce.Library.Cart
             _validatorFactory = validatorFactory;
 
             // validates type, gaves interface and validates based on type
-            _validatorFactory.ValidateProduct(product, quantity);
+            _validatorFactory.ValidateProduct(product, quantity, source);
         }
 
         // helper function to increase item quantity by amount
-        public void IncreaseQuantity(int amount = 1)
+        public void IncreaseQuantity(int amount = 1, string source = "unknown")
         {
             if (amount <= 0)
             {
@@ -44,7 +44,7 @@ namespace ECommerce.Library.Cart
             // validate quantity of physical product based on stock
             // chack newest amount in cart
             int newTotalQuantity = Quantity + amount;
-            _validatorFactory.ValidateProduct(Product, newTotalQuantity);
+            _validatorFactory.ValidateProduct(Product, newTotalQuantity, source);
             Quantity = newTotalQuantity;
         }
 

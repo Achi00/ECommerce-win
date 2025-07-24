@@ -14,5 +14,10 @@ namespace ECommerce.Library.Cart.Validation
         {
             return true;
         }
+
+        public bool Validate(IDigitalProduct product, int quantity, string source)
+        {
+            return true;
+        }
     }
 }
